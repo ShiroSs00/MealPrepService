@@ -1,5 +1,6 @@
-using Microsoft.EntityFrameworkCore;
+using MealPrepService.BLL.Services;
 using MealPrepService.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 namespace MealPrepService.Web
 {
     public class Program
@@ -13,10 +14,13 @@ namespace MealPrepService.Web
             
 
             
-            builder.Services.AddControllersWithViews();
+           
 
             builder.Services.AddDbContext<MealPrepDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("MealPrepConnection")));
+
+            builder.Services.AddScoped<UserService>();
+            builder.Services.AddScoped<NutritionService>();
 
             var app = builder.Build();
 
