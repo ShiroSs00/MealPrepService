@@ -1,7 +1,7 @@
 MealPrepService - 3 Business Workflows (Môn Học ASP.NET Core MVC)
 Dự án web-only (.NET 8, EF Core 8, 3-layer) - Không QR thực, không delivery - Demo đặt menu healthy + tracking
 
-🎯 3 Flows Chính (5 thành viên, 1 tuần deadline)
+🎯 3 Flows Chính 
 Flow 1: User Onboarding & Nutrition Profile (Team 1-2)
 text
 1. REGISTER: Email/Phone/Password → OTP verify → Create User
@@ -65,3 +65,4 @@ dotnet ef database update --project DAL --startup-project Web
 
 # Run
 dotnet run --project Web
+
