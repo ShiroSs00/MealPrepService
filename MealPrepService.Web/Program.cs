@@ -21,6 +21,7 @@ namespace MealPrepService.Web
 
             builder.Services.AddScoped<UserService>();
             builder.Services.AddScoped<NutritionService>();
+            builder.Services.AddScoped<OrderService>();
 
             var app = builder.Build();
 
