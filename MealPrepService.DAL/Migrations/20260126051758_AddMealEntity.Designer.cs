@@ -4,6 +4,7 @@ using MealPrepService.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MealPrepService.DAL.Migrations
 {
     [DbContext(typeof(MealPrepDbContext))]
-    partial class MealPrepDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260126051758_AddMealEntity")]
+    partial class AddMealEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,7 +160,7 @@ namespace MealPrepService.DAL.Migrations
                             CarbsG = 55.0,
                             Category = "Breakfast",
                             ContainsAllergens = "",
-                            CreatedAt = new DateTime(2026, 1, 26, 5, 41, 18, 831, DateTimeKind.Utc).AddTicks(9556),
+                            CreatedAt = new DateTime(2026, 1, 26, 5, 17, 57, 105, DateTimeKind.Utc).AddTicks(1686),
                             Cuisine = "Vietnamese",
                             Description = "Phở bò với nước dùng thơm ngon, bánh phở tươi và thịt bò tái",
                             DifficultyLevel = "Medium",
@@ -187,7 +190,7 @@ namespace MealPrepService.DAL.Migrations
                             CarbsG = 45.0,
                             Category = "Breakfast",
                             ContainsAllergens = "Gluten",
-                            CreatedAt = new DateTime(2026, 1, 26, 5, 41, 18, 831, DateTimeKind.Utc).AddTicks(9560),
+                            CreatedAt = new DateTime(2026, 1, 26, 5, 17, 57, 105, DateTimeKind.Utc).AddTicks(1691),
                             Cuisine = "Vietnamese",
                             Description = "Bánh mì giòn với thịt nướng thơm, rau sống và nước sốt đặc biệt",
                             DifficultyLevel = "Easy",
@@ -217,7 +220,7 @@ namespace MealPrepService.DAL.Migrations
                             CarbsG = 58.0,
                             Category = "Breakfast",
                             ContainsAllergens = "",
-                            CreatedAt = new DateTime(2026, 1, 26, 5, 41, 18, 831, DateTimeKind.Utc).AddTicks(9564),
+                            CreatedAt = new DateTime(2026, 1, 26, 5, 17, 57, 105, DateTimeKind.Utc).AddTicks(1695),
                             Cuisine = "Western",
                             Description = "Yến mạch bổ dưỡng với các loại berry tươi và hạt",
                             DifficultyLevel = "Easy",
@@ -247,7 +250,7 @@ namespace MealPrepService.DAL.Migrations
                             CarbsG = 15.0,
                             Category = "Breakfast",
                             ContainsAllergens = "",
-                            CreatedAt = new DateTime(2026, 1, 26, 5, 41, 18, 831, DateTimeKind.Utc).AddTicks(9567),
+                            CreatedAt = new DateTime(2026, 1, 26, 5, 17, 57, 105, DateTimeKind.Utc).AddTicks(1698),
                             Cuisine = "Asian",
                             Description = "Trứng chiên với nhiều loại rau củ bổ dưỡng",
                             DifficultyLevel = "Easy",
@@ -277,7 +280,7 @@ namespace MealPrepService.DAL.Migrations
                             CarbsG = 35.0,
                             Category = "Breakfast",
                             ContainsAllergens = "",
-                            CreatedAt = new DateTime(2026, 1, 26, 5, 41, 18, 831, DateTimeKind.Utc).AddTicks(9570),
+                            CreatedAt = new DateTime(2026, 1, 26, 5, 17, 57, 105, DateTimeKind.Utc).AddTicks(1702),
                             Cuisine = "Western",
                             Description = "Sinh tố xanh giàu vitamin và chất xơ",
                             DifficultyLevel = "Easy",
@@ -307,7 +310,7 @@ namespace MealPrepService.DAL.Migrations
                             CarbsG = 65.0,
                             Category = "Lunch",
                             ContainsAllergens = "",
-                            CreatedAt = new DateTime(2026, 1, 26, 5, 41, 18, 831, DateTimeKind.Utc).AddTicks(9573),
+                            CreatedAt = new DateTime(2026, 1, 26, 5, 17, 57, 105, DateTimeKind.Utc).AddTicks(1705),
                             Cuisine = "Vietnamese",
                             Description = "Cơm trắng với gà nướng sả thơm lừng",
                             DifficultyLevel = "Medium",
@@ -337,7 +340,7 @@ namespace MealPrepService.DAL.Migrations
                             CarbsG = 35.0,
                             Category = "Lunch",
                             ContainsAllergens = "",
-                            CreatedAt = new DateTime(2026, 1, 26, 5, 41, 18, 831, DateTimeKind.Utc).AddTicks(9576),
+                            CreatedAt = new DateTime(2026, 1, 26, 5, 17, 57, 105, DateTimeKind.Utc).AddTicks(1709),
                             Cuisine = "Western",
                             Description = "Salad gà nướng với quinoa và rau xanh",
                             DifficultyLevel = "Easy",
@@ -367,7 +370,7 @@ namespace MealPrepService.DAL.Migrations
                             CarbsG = 55.0,
                             Category = "Lunch",
                             ContainsAllergens = "",
-                            CreatedAt = new DateTime(2026, 1, 26, 5, 41, 18, 831, DateTimeKind.Utc).AddTicks(9579),
+                            CreatedAt = new DateTime(2026, 1, 26, 5, 17, 57, 105, DateTimeKind.Utc).AddTicks(1712),
                             Cuisine = "Asian",
                             Description = "Pad Thai chay với đậu hũ và rau củ",
                             DifficultyLevel = "Medium",
@@ -397,7 +400,7 @@ namespace MealPrepService.DAL.Migrations
                             CarbsG = 25.0,
                             Category = "Dinner",
                             ContainsAllergens = "Soy,Gluten",
-                            CreatedAt = new DateTime(2026, 1, 26, 5, 41, 18, 831, DateTimeKind.Utc).AddTicks(9582),
+                            CreatedAt = new DateTime(2026, 1, 26, 5, 17, 57, 105, DateTimeKind.Utc).AddTicks(1716),
                             Cuisine = "Asian",
                             Description = "Cá hồi nướng với sốt teriyaki và rau củ",
                             DifficultyLevel = "Medium",
@@ -427,7 +430,7 @@ namespace MealPrepService.DAL.Migrations
                             CarbsG = 35.0,
                             Category = "Dinner",
                             ContainsAllergens = "",
-                            CreatedAt = new DateTime(2026, 1, 26, 5, 41, 18, 831, DateTimeKind.Utc).AddTicks(9586),
+                            CreatedAt = new DateTime(2026, 1, 26, 5, 17, 57, 105, DateTimeKind.Utc).AddTicks(1719),
                             Cuisine = "Vietnamese",
                             Description = "Thịt bò thăn xào với khoai tây và rau củ",
                             DifficultyLevel = "Medium",
@@ -457,7 +460,7 @@ namespace MealPrepService.DAL.Migrations
                             CarbsG = 18.0,
                             Category = "Snack",
                             ContainsAllergens = "Dairy,Nuts",
-                            CreatedAt = new DateTime(2026, 1, 26, 5, 41, 18, 831, DateTimeKind.Utc).AddTicks(9589),
+                            CreatedAt = new DateTime(2026, 1, 26, 5, 17, 57, 105, DateTimeKind.Utc).AddTicks(1723),
                             Cuisine = "Western",
                             Description = "Sữa chua Hy Lạp với hạt điều và mật ong",
                             DifficultyLevel = "Easy",
@@ -487,7 +490,7 @@ namespace MealPrepService.DAL.Migrations
                             CarbsG = 20.0,
                             Category = "Snack",
                             ContainsAllergens = "Nuts",
-                            CreatedAt = new DateTime(2026, 1, 26, 5, 41, 18, 831, DateTimeKind.Utc).AddTicks(9607),
+                            CreatedAt = new DateTime(2026, 1, 26, 5, 17, 57, 105, DateTimeKind.Utc).AddTicks(1728),
                             Cuisine = "Western",
                             Description = "Hỗn hợp hạt và trái cây khô bổ dưỡng",
                             DifficultyLevel = "Easy",
@@ -517,7 +520,7 @@ namespace MealPrepService.DAL.Migrations
                             CarbsG = 60.0,
                             Category = "Lunch",
                             ContainsAllergens = "",
-                            CreatedAt = new DateTime(2026, 1, 26, 5, 41, 18, 831, DateTimeKind.Utc).AddTicks(9611),
+                            CreatedAt = new DateTime(2026, 1, 26, 5, 17, 57, 105, DateTimeKind.Utc).AddTicks(1731),
                             Cuisine = "Vietnamese",
                             Description = "Bún bò Huế truyền thống với nước dùng đậm đà",
                             DifficultyLevel = "Hard",
@@ -547,7 +550,7 @@ namespace MealPrepService.DAL.Migrations
                             CarbsG = 45.0,
                             Category = "Lunch",
                             ContainsAllergens = "",
-                            CreatedAt = new DateTime(2026, 1, 26, 5, 41, 18, 831, DateTimeKind.Utc).AddTicks(9613),
+                            CreatedAt = new DateTime(2026, 1, 26, 5, 17, 57, 105, DateTimeKind.Utc).AddTicks(1735),
                             Cuisine = "Western",
                             Description = "Tô thức ăn chay đầy màu sắc và dinh dưỡng",
                             DifficultyLevel = "Easy",
@@ -577,7 +580,7 @@ namespace MealPrepService.DAL.Migrations
                             CarbsG = 40.0,
                             Category = "Breakfast",
                             ContainsAllergens = "Dairy",
-                            CreatedAt = new DateTime(2026, 1, 26, 5, 41, 18, 831, DateTimeKind.Utc).AddTicks(9616),
+                            CreatedAt = new DateTime(2026, 1, 26, 5, 17, 57, 105, DateTimeKind.Utc).AddTicks(1738),
                             Cuisine = "Western",
                             Description = "Bánh pancake protein cho bữa sáng bổ dưỡng",
                             DifficultyLevel = "Easy",
@@ -607,7 +610,7 @@ namespace MealPrepService.DAL.Migrations
                             CarbsG = 12.0,
                             Category = "Dinner",
                             ContainsAllergens = "Shellfish",
-                            CreatedAt = new DateTime(2026, 1, 26, 5, 41, 18, 831, DateTimeKind.Utc).AddTicks(9619),
+                            CreatedAt = new DateTime(2026, 1, 26, 5, 17, 57, 105, DateTimeKind.Utc).AddTicks(1742),
                             Cuisine = "Asian",
                             Description = "Canh chua cay Thái Lan với tôm tươi",
                             DifficultyLevel = "Medium",
@@ -637,7 +640,7 @@ namespace MealPrepService.DAL.Migrations
                             CarbsG = 20.0,
                             Category = "Snack",
                             ContainsAllergens = "Nuts",
-                            CreatedAt = new DateTime(2026, 1, 26, 5, 41, 18, 831, DateTimeKind.Utc).AddTicks(9622),
+                            CreatedAt = new DateTime(2026, 1, 26, 5, 17, 57, 105, DateTimeKind.Utc).AddTicks(1745),
                             Cuisine = "Western",
                             Description = "Viên năng lượng từ hạt và trái cây khô",
                             DifficultyLevel = "Easy",
@@ -667,7 +670,7 @@ namespace MealPrepService.DAL.Migrations
                             CarbsG = 25.0,
                             Category = "Dinner",
                             ContainsAllergens = "",
-                            CreatedAt = new DateTime(2026, 1, 26, 5, 41, 18, 831, DateTimeKind.Utc).AddTicks(9625),
+                            CreatedAt = new DateTime(2026, 1, 26, 5, 17, 57, 105, DateTimeKind.Utc).AddTicks(1748),
                             Cuisine = "Asian",
                             Description = "Lẩu Thái chay với đậu hũ và rau củ",
                             DifficultyLevel = "Easy",
@@ -697,7 +700,7 @@ namespace MealPrepService.DAL.Migrations
                             CarbsG = 25.0,
                             Category = "Breakfast",
                             ContainsAllergens = "",
-                            CreatedAt = new DateTime(2026, 1, 26, 5, 41, 18, 831, DateTimeKind.Utc).AddTicks(9627),
+                            CreatedAt = new DateTime(2026, 1, 26, 5, 17, 57, 105, DateTimeKind.Utc).AddTicks(1751),
                             Cuisine = "Western",
                             Description = "Pudding hạt chia với sữa dừa và trái cây",
                             DifficultyLevel = "Easy",
@@ -727,7 +730,7 @@ namespace MealPrepService.DAL.Migrations
                             CarbsG = 35.0,
                             Category = "Lunch",
                             ContainsAllergens = "Gluten",
-                            CreatedAt = new DateTime(2026, 1, 26, 5, 41, 18, 831, DateTimeKind.Utc).AddTicks(9630),
+                            CreatedAt = new DateTime(2026, 1, 26, 5, 17, 57, 105, DateTimeKind.Utc).AddTicks(1754),
                             Cuisine = "Western",
                             Description = "Bánh wrap gà nướng với rau xanh tươi mát",
                             DifficultyLevel = "Easy",
