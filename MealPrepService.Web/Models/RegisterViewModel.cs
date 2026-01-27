@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-
 namespace MealPrepService.Web.Models
 {
     public class RegisterViewModel

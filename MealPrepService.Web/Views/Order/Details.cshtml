@@ -1,0 +1,12 @@
+﻿@model MealPrepService.DAL.Entities.Order
+
+<h2>Chi tiết đơn hàng</h2>
+
+<table class="table">
+    <tr><th>Mã đơn</th><td>@Model.OrderCode</td></tr>
+    <tr><th>Tổng</th><td>@Model.TotalAmount.ToString("C")</td></tr>
+    <tr><th>Trạng thái</th><td>@Model.Status</td></tr>
+    <tr><th>Ngày tạo</th><td>@Model.CreatedAt.ToLocalTime()</td></tr>
+</table>
+
+<a asp-action="Payment" asp-route-orderId="@Model.Id" class="btn btn-success">Thanh toán</a>

@@ -34,6 +34,7 @@ namespace MealPrepService.Web
             // Existing services
             builder.Services.AddScoped<UserService>();
             builder.Services.AddScoped<NutritionService>();
+            builder.Services.AddScoped<OrderService>();
 
             // AI Menu Service (THÊM M?I)
             builder.Services.AddScoped<IAIMenuService, AIMenuService>();

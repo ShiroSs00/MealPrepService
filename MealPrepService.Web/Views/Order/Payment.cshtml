@@ -1,0 +1,22 @@
+﻿@model MealPrepService.DAL.Entities.Order
+
+@{
+    ViewData["Title"] = "Thanh toán";
+}
+
+<h2>Thanh toán đơn hàng @Model.OrderCode</h2>
+
+<p><strong>Mã đơn:</strong> @Model.OrderCode</p>
+<p><strong>Tổng tiền:</strong> @Model.TotalAmount.ToString("C")</p>
+
+<form asp-action="ProcessPayment" asp-controller="Order" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="orderId" value="@Model.Id" />
+    <label>Phương thức thanh toán</label>
+    <select name="paymentMethod">
+        <option value="MockPay">MockPay</option>
+        <option value="Card">Card</option>
+        <option value="Cash">Cash</option>
+    </select>
+    <button type="submit" class="btn btn-primary">Thanh toán (Mock)</button>
+</form>

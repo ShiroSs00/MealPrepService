@@ -10,4 +10,9 @@
     <ProjectReference Include="..\MealPrepService.DAL\MealPrepService.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTOs\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>
