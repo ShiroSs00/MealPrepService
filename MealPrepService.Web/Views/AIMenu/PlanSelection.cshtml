@@ -1,0 +1,192 @@
+﻿@model PlanSelectionViewModel
+@{
+    ViewData["Title"] = "AI Menu Plan Selection";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="fas fa-robot"></i> AI Menu Plan Selection</h3>
+                    <small>Let our AI create a personalized meal plan for you!</small>
+                </div>
+
+                <div class="card-body">
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger">
+                            <h6>Please fix the following errors:</h6>
+                            <asp-validation-summary asp-validation-summary="All" class="text-danger" />
+                        </div>
+                    }
+
+                    <form asp-action="GenerateMenu" method="post">
+                        <input type="hidden" asp-for="UserId" />
+                        <input type="hidden" asp-for="NutritionProfileId" />
+
+                        <!-- Plan Type Selection -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <label class="form-label fw-bold">Select Your Plan</label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card plan-card" onclick="selectPlan('Basic')">
+                                            <div class="card-body text-center">
+                                                <input type="radio" asp-for="PlanType" value="Basic" checked class="d-none plan-radio" />
+                                                <h5 class="card-title">Basic Plan</h5>
+                                                <p class="text-muted">21 meals/week</p>
+                                                <ul class="list-unstyled">
+                                                    <li>✓ 3 main meals/day</li>
+                                                    <li>✓ AI-optimized nutrition</li>
+                                                    <li>✓ Weekly meal plan</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card plan-card" onclick="selectPlan('Premium')">
+                                            <div class="card-body text-center">
+                                                <input type="radio" asp-for="PlanType" value="Premium" class="d-none plan-radio" />
+                                                <h5 class="card-title">Premium Plan</h5>
+                                                <p class="text-muted">35 meals/week</p>
+                                                <ul class="list-unstyled">
+                                                    <li>✓ 3 main meals + 2 snacks/day</li>
+                                                    <li>✓ Advanced AI optimization</li>
+                                                    <li>✓ Premium ingredients</li>
+                                                    <li>✓ Detailed nutrition tracking</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Week Selection -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="WeekStartDate" class="form-label">Week Start Date</label>
+                                <input asp-for="WeekStartDate" class="form-control" type="date" />
+                                <span asp-validation-for="WeekStartDate" class="text-danger"></span>
+                                <small class="text-muted">Week: @Model.WeekDateRange</small>
+                            </div>
+                            
+                        </div>
+
+                        <!-- Current Profile Info (Read-only display) -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <h6 class="text-primary">Your Current Profile</h6>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="form-label">Goal</label>
+                                        <input asp-for="Goal" class="form-control" readonly />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Budget</label>
+                                        <input asp-for="Budget" class="form-control" readonly />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Total Meals</label>
+                                        <input value="@Model.TotalMealsPerWeek" class="form-control" readonly />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dietary Preferences -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="CuisinePreferences" class="form-label">Cuisine Preferences</label>
+                                <input asp-for="CuisinePreferences" class="form-control" placeholder="e.g., Vietnamese, Asian, Western" />
+                                <small class="text-muted">Separate with commas</small>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Allergies" class="form-label">Allergies</label>
+                                <input asp-for="Allergies" class="form-control" placeholder="e.g., Nuts, Dairy, Shellfish" />
+                                <small class="text-muted">Separate with commas</small>
+                            </div>
+                        </div>
+
+                        <!-- Dietary Restrictions -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <label class="form-label">Dietary Restrictions</label>
+                                <div class="form-check">
+                                    <input asp-for="IsVegetarian" class="form-check-input" />
+                                    <label asp-for="IsVegetarian" class="form-check-label">
+                                        Vegetarian
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input asp-for="IsVegan" class="form-check-input" />
+                                    <label asp-for="IsVegan" class="form-check-label">
+                                        Vegan
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="row">
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary btn-lg w-100">
+                                    <i class="fas fa-magic"></i> Generate AI Menu
+                                </button>
+                                <div class="mt-2 text-center">
+                                    <small class="text-muted">This will take a few seconds to generate your personalized menu...</small>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .plan-card {
+        cursor: pointer;
+        transition: all 0.3s;
+        border: 2px solid #dee2e6;
+    }
+    .plan-card:hover {
+        border-color: #0d6efd;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .plan-card.selected {
+        border-color: #0d6efd;
+        background-color: #f8f9ff;
+    }
+</style>
+
+<script>
+    function selectPlan(planType) {
+        // Remove selected class from all cards
+        document.querySelectorAll('.plan-card').forEach(card => {
+            card.classList.remove('selected');
+        });
+
+        // Add selected class to clicked card
+        event.currentTarget.classList.add('selected');
+
+        // Update radio button
+        document.querySelector(`input[value="${planType}"]`).checked = true;
+
+        // Update total meals display
+        const totalMeals = planType === 'Premium' ? 35 : 21;
+        document.querySelector('input[value="@Model.TotalMealsPerWeek"]').value = totalMeals;
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const checkedRadio = document.querySelector('input[name="PlanType"]:checked');
+        if (checkedRadio) {
+            selectPlan(checkedRadio.value);
+        }
+    });
+</script>
+
+

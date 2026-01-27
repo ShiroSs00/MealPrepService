@@ -1,0 +1,224 @@
+﻿@model MenuReviewViewModel
+@{
+    ViewData["Title"] = "AI Generated Menu Review";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <!-- Header -->
+            <div class="card shadow mb-4">
+                <div class="card-header bg-success text-white">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h3 class="mb-0"><i class="fas fa-check-circle"></i> Your AI Generated Menu</h3>
+                            <small>Week: @Model.WeekDateRange | @Model.PlanType Plan</small>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <span class="badge bg-light text-dark fs-6">
+                                Total: @Model.WeeklyMenu.TotalMeals meals
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <!-- Nutrition Summary -->
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <div class="text-center p-2 border rounded">
+                                <h5 class="text-primary mb-0">@Model.NutritionSummary.AverageCaloriesPerDay.ToString("F0")</h5>
+                                <small class="text-muted">Avg Calories/Day</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center p-2 border rounded">
+                                <h5 class="text-success mb-0">@Model.NutritionSummary.AverageProteinPerDay.ToString("F0")g</h5>
+                                <small class="text-muted">Avg Protein/Day</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center p-2 border rounded">
+                                <h5 class="text-info mb-0">@Model.NutritionSummary.CalorieVariance.ToString("F1")%</h5>
+                                <small class="text-muted">Calorie Variance</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center p-2 border rounded">
+                                <h5 class="@(Model.NutritionSummary.MeetsNutritionGoals ? "text-success" : "text-warning") mb-0">
+                                    @(Model.NutritionSummary.MeetsNutritionGoals ? "✓" : "⚠")
+                                </h5>
+                                <small class="text-muted">Goals Met</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nutrition Notes -->
+                    @if (Model.NutritionSummary.NutritionNotes.Any())
+                    {
+                        <div class="alert alert-info">
+                            <strong>Nutrition Notes:</strong>
+                            <ul class="mb-0">
+                                @foreach (var note in Model.NutritionSummary.NutritionNotes)
+                                {
+                                    <li>@note</li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Weekly Menu Table -->
+            <div class="card shadow">
+                <div class="card-header">
+                    <h5 class="mb-0">Weekly Menu Plan</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th style="width: 100px;">Day</th>
+                                    <th>Breakfast</th>
+                                    <th>Lunch</th>
+                                    <th>Dinner</th>
+                                    @if (Model.IsPremiumPlan)
+                                    {
+                                        <th>Snacks</th>
+                                    }
+                                    <th style="width: 120px;">Daily Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var day in Model.WeeklyMenu.Days)
+                                {
+                                    <tr>
+                                        <!-- Day Column -->
+                                        <td class="align-middle">
+                                            <strong>@day.DayName</strong><br>
+                                            <small class="text-muted">@day.Date.ToString("MMM dd")</small>
+                                        </td>
+
+                                        <!-- Breakfast Column -->
+                                        <td>
+                                            @foreach (var meal in day.Meals.Where(m => m.Category == "Breakfast"))
+                                            {
+                                                <div class="meal-item mb-2">
+                                                    <strong>@meal.Name</strong><br>
+                                                    <small class="text-muted">
+                                                        @meal.CaloriesPerServing.ToString("F0") cal |
+                                                        @meal.ProteinG.ToString("F0")g protein
+                                                    </small><br>
+                                                    <small class="text-info">@meal.SelectionReason</small>
+                                                </div>
+                                            }
+                                        </td>
+
+                                        <!-- Lunch Column -->
+                                        <td>
+                                            @foreach (var meal in day.Meals.Where(m => m.Category == "Lunch"))
+                                            {
+                                                <div class="meal-item mb-2">
+                                                    <strong>@meal.Name</strong><br>
+                                                    <small class="text-muted">
+                                                        @meal.CaloriesPerServing.ToString("F0") cal |
+                                                        @meal.ProteinG.ToString("F0")g protein
+                                                    </small><br>
+                                                    <small class="text-info">@meal.SelectionReason</small>
+                                                </div>
+                                            }
+                                        </td>
+
+                                        <!-- Dinner Column -->
+                                        <td>
+                                            @foreach (var meal in day.Meals.Where(m => m.Category == "Dinner"))
+                                            {
+                                                <div class="meal-item mb-2">
+                                                    <strong>@meal.Name</strong><br>
+                                                    <small class="text-muted">
+                                                        @meal.CaloriesPerServing.ToString("F0") cal |
+                                                        @meal.ProteinG.ToString("F0")g protein
+                                                    </small><br>
+                                                    <small class="text-info">@meal.SelectionReason</small>
+                                                </div>
+                                            }
+                                        </td>
+
+                                        <!-- Snacks Column (Premium only) -->
+                                        @if (Model.IsPremiumPlan)
+                                        {
+                                            <td>
+                                                @foreach (var meal in day.Meals.Where(m => m.Category == "Snack"))
+                                                {
+                                                    <div class="meal-item mb-1">
+                                                        <strong>@meal.Name</strong><br>
+                                                        <small class="text-muted">@meal.CaloriesPerServing.ToString("F0") cal</small>
+                                                    </div>
+                                                }
+                                            </td>
+                                        }
+
+                                        <!-- Daily Total Column -->
+                                        <td class="text-center align-middle">
+                                            <strong class="text-primary">@day.DailyCalories.ToString("F0")</strong><br>
+                                            <small class="text-muted">calories</small><br>
+                                            <small class="text-success">@day.DailyProtein.ToString("F0")g protein</small>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <form asp-action="RegenerateMenu" method="post">
+                        <input type="hidden" asp-for="UserId" />
+                        <input type="hidden" asp-for="PlanType" />
+                        <input type="hidden" asp-for="WeekStartDate" />
+                        <button type="submit" class="btn btn-outline-primary btn-lg w-100">
+                            <i class="fas fa-redo"></i> Regenerate Menu
+                        </button>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <form asp-action="ConfirmMenu" method="post">
+                        <input type="hidden" asp-for="UserId" />
+                        <input type="hidden" asp-for="PlanType" />
+                        <input type="hidden" asp-for="WeekStartDate" />
+                        <!-- You might want to serialize the entire WeeklyMenu here -->
+                        <button type="submit" class="btn btn-success btn-lg w-100">
+                            <i class="fas fa-check"></i> Confirm This Menu
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Generated Info -->
+            <div class="text-center mt-3">
+                <small class="text-muted">
+                    Generated at: @Model.GeneratedAt.ToString("MMM dd, yyyy hh:mm tt") |
+                    Estimated Cost: $@Model.WeeklyMenu.TotalEstimatedCost.ToString("F2")/week
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .meal-item {
+        padding: 8px;
+        border-left: 3px solid #dee2e6;
+        background-color: #f8f9fa;
+    }
+
+        .meal-item:hover {
+            background-color: #e9ecef;
+        }
+</style>
+
+
