@@ -1,0 +1,244 @@
+@using MealPrepService.DAL.Entities
+@model NutritionProfile
+@{
+    ViewData["Title"] = "Dashboard - MealPrepService";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <!-- Welcome Header -->
+        <div class="col-12">
+            <div class="card shadow-lg mb-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <div class="card-body text-white p-4">
+                    <h2 class="mb-2"><i class="fas fa-fire"></i> Welcome to Your Dashboard!</h2>
+                    <p class="mb-0">Your personalized nutrition targets are ready. Let's start your healthy journey!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Left Column: Nutrition Stats -->
+        <div class="col-lg-8">
+            <!-- Calorie Targets Card -->
+            <div class="card shadow mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-calculator"></i> Your Daily Nutrition Targets</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-3 mb-3">
+                            <div class="stat-box p-3 border rounded bg-light">
+                                <div class="stat-icon mb-2">
+                                    <i class="fas fa-heartbeat fa-2x text-danger"></i>
+                                </div>
+                                <h4 class="text-primary mb-1">@Model.BMR.ToString("F0")</h4>
+                                <small class="text-muted">BMR (kcal)</small>
+                                <div class="mt-2">
+                                    <span class="badge bg-secondary">Base Metabolic Rate</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="stat-box p-3 border rounded bg-light">
+                                <div class="stat-icon mb-2">
+                                    <i class="fas fa-running fa-2x text-success"></i>
+                                </div>
+                                <h4 class="text-success mb-1">@Model.TDEE.ToString("F0")</h4>
+                                <small class="text-muted">TDEE (kcal)</small>
+                                <div class="mt-2">
+                                    <span class="badge bg-secondary">Total Daily Energy</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="stat-box p-3 border rounded bg-warning">
+                                <div class="stat-icon mb-2">
+                                    <i class="fas fa-bullseye fa-2x text-white"></i>
+                                </div>
+                                <h4 class="text-white mb-1">@Model.TargetCalories.ToString("F0")</h4>
+                                <small class="text-white">Target (kcal)</small>
+                                <div class="mt-2">
+                                    <span class="badge bg-dark">@Model.Goal Goal</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="stat-box p-3 border rounded bg-light">
+                                <div class="stat-icon mb-2">
+                                    <i class="fas fa-utensils fa-2x text-info"></i>
+                                </div>
+                                <h4 class="text-info mb-1">@Model.MealsPerDay</h4>
+                                <small class="text-muted">Meals/Day</small>
+                                <div class="mt-2">
+                                    <span class="badge bg-secondary">@Model.ActivityLevel</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Macros Breakdown Card -->
+            <div class="card shadow mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="fas fa-chart-pie"></i> Daily Macronutrients Breakdown</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 text-center mb-3">
+                            <div class="macro-card p-3 border rounded" style="background-color: #fff3cd;">
+                                <i class="fas fa-drumstick-bite fa-3x text-warning mb-2"></i>
+                                <h3 class="text-warning mb-1">@Model.TargetProteinG.ToString("F1")g</h3>
+                                <p class="mb-0 text-muted">Protein</p>
+                                <small class="text-muted">(@((Model.TargetProteinG * 4 / Model.TargetCalories * 100).ToString("F0"))% of calories)</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center mb-3">
+                            <div class="macro-card p-3 border rounded" style="background-color: #d1ecf1;">
+                                <i class="fas fa-bread-slice fa-3x text-info mb-2"></i>
+                                <h3 class="text-info mb-1">@Model.TargetCarbsG.ToString("F1")g</h3>
+                                <p class="mb-0 text-muted">Carbohydrates</p>
+                                <small class="text-muted">(@((Model.TargetCarbsG * 4 / Model.TargetCalories * 100).ToString("F0"))% of calories)</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center mb-3">
+                            <div class="macro-card p-3 border rounded" style="background-color: #f8d7da;">
+                                <i class="fas fa-cheese fa-3x text-danger mb-2"></i>
+                                <h3 class="text-danger mb-1">@Model.TargetFatG.ToString("F1")g</h3>
+                                <p class="mb-0 text-muted">Fat</p>
+                                <small class="text-muted">(@((Model.TargetFatG * 9 / Model.TargetCalories * 100).ToString("F0"))% of calories)</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Profile Info & Actions -->
+        <div class="col-lg-4">
+            <!-- Profile Summary Card -->
+            <div class="card shadow mb-4">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-user"></i> Your Profile</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm table-borderless">
+                        <tr>
+                            <td><i class="fas fa-bullseye text-primary"></i> <strong>Goal:</strong></td>
+                            <td class="text-end"><span class="badge bg-primary">@Model.Goal</span></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-running text-success"></i> <strong>Activity:</strong></td>
+                            <td class="text-end"><span class="badge bg-success">@Model.ActivityLevel</span></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-wallet text-warning"></i> <strong>Budget:</strong></td>
+                            <td class="text-end"><span class="badge bg-warning text-dark">@Model.Budget</span></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-utensils text-info"></i> <strong>Meals/Day:</strong></td>
+                            <td class="text-end"><span class="badge bg-info">@Model.MealsPerDay</span></td>
+                        </tr>
+                        @if (!string.IsNullOrEmpty(Model.Allergies))
+                        {
+                            <tr>
+                                <td><i class="fas fa-exclamation-triangle text-danger"></i> <strong>Allergies:</strong></td>
+                                <td class="text-end"><small>@Model.Allergies</small></td>
+                            </tr>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.CuisinePreferences))
+                        {
+                            <tr>
+                                <td><i class="fas fa-globe text-secondary"></i> <strong>Cuisine:</strong></td>
+                                <td class="text-end"><small>@Model.CuisinePreferences</small></td>
+                            </tr>
+                        }
+                    </table>
+                    <div class="text-center mt-3">
+                        <a asp-controller="User" asp-action="Profile" asp-route-userId="@Model.UserId" 
+                           class="btn btn-outline-primary btn-sm w-100">
+                            <i class="fas fa-edit"></i> Edit Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Card: Generate Menu -->
+            <div class="card shadow mb-4 border-success">
+                <div class="card-body text-center p-4" style="background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);">
+                    <i class="fas fa-magic fa-3x text-white mb-3"></i>
+                    <h4 class="text-white mb-3">Ready to Start?</h4>
+                    <p class="text-white mb-4">Let our AI generate a personalized weekly meal plan for you!</p>
+                    <a asp-controller="AIMenu" asp-action="PlanSelection" asp-route-userId="@Model.UserId" 
+                       class="btn btn-light btn-lg w-100 shadow">
+                        <i class="fas fa-robot"></i> Generate AI Menu Plan
+                    </a>
+                </div>
+            </div>
+
+            <!-- Info Card -->
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <h6 class="card-title"><i class="fas fa-info-circle text-info"></i> How It Works</h6>
+                    <ol class="small mb-0">
+                        <li>Select your preferred meal plan (Basic/Premium)</li>
+                        <li>Our AI generates personalized meals</li>
+                        <li>Review and confirm your weekly menu</li>
+                        <li>Track your progress and rate meals</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Created Info -->
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-info text-center">
+                <i class="fas fa-calendar-alt"></i> Profile created on <strong>@Model.CreatedAt.ToString("MMMM dd, yyyy")</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .stat-box {
+        transition: all 0.3s ease;
+    }
+
+    .stat-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .macro-card {
+        transition: all 0.3s ease;
+    }
+
+    .macro-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .card {
+        border: none;
+        border-radius: 12px;
+    }
+
+    .card-header {
+        border-radius: 12px 12px 0 0 !important;
+    }
+
+    .btn-lg {
+        padding: 12px 24px;
+        font-weight: 600;
+        border-radius: 8px;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+    }
+</style>
