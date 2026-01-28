@@ -1,0 +1,80 @@
+﻿@{
+    ViewData["Title"] = "Choose Your Meal Plan";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">🍱 Choose Your Meal Plan</h2>
+
+    <form asp-action="ReviewMenu" asp-controller="Subscription" method="post">
+        <div class="row justify-content-center">
+
+            <!-- BASIC PLAN -->
+            <div class="col-md-4">
+                <div class="card shadow-sm plan-card">
+                    <div class="card-header bg-light text-center">
+                        <h4>Basic</h4>
+                        <p class="text-muted">21 meals / week</p>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li>3 meals / day</li>
+                            <li>Standard nutrition</li>
+                            <li>No snacks</li>
+                        </ul>
+
+                        <h5 class="text-center text-success">499,000 VND / week</h5>
+
+                        <div class="text-center mt-3">
+                            <input type="radio" name="planId" value="1" required />
+                            <label>Select Basic</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PREMIUM PLAN -->
+            <div class="col-md-4">
+                <div class="card shadow-sm plan-card border-warning">
+                    <div class="card-header bg-warning text-center">
+                        <h4>Premium ⭐</h4>
+                        <p>35 meals / week</p>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li>5 meals / day</li>
+                            <li>High protein</li>
+                            <li>Snacks included</li>
+                        </ul>
+
+                        <h5 class="text-center text-danger">799,000 VND / week</h5>
+
+                        <div class="text-center mt-3">
+                            <input type="radio" name="planId" value="2" required />
+                            <label>Select Premium</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Hidden Nutrition Profile -->
+        <input type="hidden" name="nutritionProfileId" value="@ViewBag.NutritionProfileId" />
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary btn-lg">
+                👉 Generate Weekly Menu
+            </button>
+        </div>
+    </form>
+</div>
+
+<style>
+    .plan-card {
+        transition: transform 0.2s ease;
+    }
+
+    .plan-card:hover {
+        transform: scale(1.03);
+    }
+</style>
