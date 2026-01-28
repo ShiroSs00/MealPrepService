@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using MealPrepService.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MealPrepService.Web.Controllers

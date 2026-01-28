@@ -1,0 +1,153 @@
+@using MealPrepService.Web.Models
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Login - MealPrepService";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5 col-lg-4">
+            <!-- Logo/Brand Section -->
+            <div class="text-center mb-4">
+                <div class="mb-3">
+                    <i class="fas fa-utensils fa-4x text-primary"></i>
+                </div>
+                <h2 class="fw-bold text-primary">MealPrepService</h2>
+                <p class="text-muted">Healthy eating made easy with AI</p>
+            </div>
+
+            <!-- Login Card -->
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-4">
+                    <h4 class="card-title text-center mb-4">
+                        <i class="fas fa-sign-in-alt"></i> Sign In
+                    </h4>
+
+                    <form asp-action="Login" asp-controller="User" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <!-- Email Field -->
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">
+                                <i class="fas fa-envelope text-primary"></i> Email Address
+                            </label>
+                            <input asp-for="Email" 
+                                   type="email" 
+                                   class="form-control form-control-lg" 
+                                   placeholder="your.email@example.com"
+                                   autofocus />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Password Field -->
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label">
+                                <i class="fas fa-lock text-primary"></i> Password
+                            </label>
+                            <input asp-for="Password" 
+                                   type="password" 
+                                   class="form-control form-control-lg" 
+                                   placeholder="Enter your password" />
+                            <span asp-validation-for="Password" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Remember Me Checkbox -->
+                        <div class="mb-3 form-check">
+                            <input asp-for="RememberMe" 
+                                   type="checkbox" 
+                                   class="form-check-input" />
+                            <label asp-for="RememberMe" class="form-check-label">
+                                Remember me
+                            </label>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid gap-2 mb-3">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-sign-in-alt"></i> Sign In
+                            </button>
+                        </div>
+
+                        <!-- Forgot Password Link -->
+                        <div class="text-center mb-3">
+                            <a href="#" class="text-muted small">
+                                <i class="fas fa-question-circle"></i> Forgot password?
+                            </a>
+                        </div>
+
+                        <!-- Divider -->
+                        <hr class="my-4">
+
+                        <!-- Register Link -->
+                        <div class="text-center">
+                            <p class="text-muted mb-2">Don't have an account?</p>
+                            <a asp-action="Register" asp-controller="User" 
+                               class="btn btn-outline-success btn-lg w-100">
+                                <i class="fas fa-user-plus"></i> Create New Account
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Demo Info Card -->
+            <div class="card mt-3 border-0 bg-light">
+                <div class="card-body text-center">
+                    <small class="text-muted">
+                        <i class="fas fa-info-circle"></i> 
+                        <strong>Demo Mode:</strong> Simple authentication for testing purposes
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .form-control-lg:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        border-radius: 10px;
+        padding: 12px;
+        font-weight: 600;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-success {
+        border-radius: 10px;
+        padding: 12px;
+        font-weight: 600;
+        border-width: 2px;
+    }
+
+    .btn-outline-success:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+        transition: all 0.3s ease;
+    }
+</style>

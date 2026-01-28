@@ -14,6 +14,65 @@ namespace MealPrepService.Web.Controllers
         }
 
         // =====================
+        // LOGIN
+        // =====================
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(LoginViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            try
+            {
+                var user = _userService.Login(model.Email, model.Password);
+
+                if (user == null)
+                {
+                    ModelState.AddModelError("", "Invalid email or password");
+                    return View(model);
+                }
+
+                // ✅ Store user info in session (simple auth)
+                HttpContext.Session.SetInt32("UserId", user.Id);
+                HttpContext.Session.SetString("UserName", user.Name);
+                HttpContext.Session.SetString("UserEmail", user.Email);
+
+                // Check if user has completed profile
+                var profile = _userService.GetActiveNutritionProfile(user.Id);
+                
+                if (profile == null)
+                {
+                    // Redirect to complete profile
+                    return RedirectToAction("Profile", new { userId = user.Id });
+                }
+
+                // Redirect to dashboard if profile exists
+                return RedirectToAction("Dashboard", new { userId = user.Id });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", $"Login failed: {ex.Message}");
+                return View(model);
+            }
+        }
+
+        // =====================
+        // LOGOUT
+        // =====================
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
+        }
+
+        // =====================
         // REGISTER
         // =====================
         [HttpGet]
@@ -29,13 +88,26 @@ namespace MealPrepService.Web.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = _userService.Register(
-                model.Name,
-                model.Email,
-                model.Password
-            );
+            try
+            {
+                var user = _userService.Register(
+                    model.Name,
+                    model.Email,
+                    model.Password
+                );
 
-            return RedirectToAction("Profile", new { userId = user.Id });
+                // Auto login after register
+                HttpContext.Session.SetInt32("UserId", user.Id);
+                HttpContext.Session.SetString("UserName", user.Name);
+                HttpContext.Session.SetString("UserEmail", user.Email);
+
+                return RedirectToAction("Profile", new { userId = user.Id });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(model);
+            }
         }
 
         [HttpGet]

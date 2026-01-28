@@ -1,0 +1,226 @@
+@using MealPrepService.Web.Models
+
+@model ProfileViewModel
+@{
+    ViewData["Title"] = "Your Profile - MealPrepService";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Header -->
+            <div class="card shadow mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="fas fa-user-circle"></i> Complete Your Profile</h3>
+                    <small>Help us personalize your meal plans</small>
+                </div>
+            </div>
+
+            <form asp-action="Profile" asp-controller="User" method="post">
+                <input type="hidden" asp-for="UserId" />
+                
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                <!-- Step 1: Basic Body Info -->
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="fas fa-weight"></i> Step 1: Body Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Height -->
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label asp-for="HeightCm" class="form-label">Height (cm)</label>
+                                    <input asp-for="HeightCm" type="number" step="0.1" class="form-control" placeholder="170" />
+                                    <span asp-validation-for="HeightCm" class="text-danger small"></span>
+                                </div>
+                            </div>
+
+                            <!-- Weight -->
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label asp-for="WeightKg" class="form-label">Weight (kg)</label>
+                                    <input asp-for="WeightKg" type="number" step="0.1" class="form-control" placeholder="65" />
+                                    <span asp-validation-for="WeightKg" class="text-danger small"></span>
+                                </div>
+                            </div>
+
+                            <!-- Birth Date -->
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label asp-for="BirthDate" class="form-label">Birth Date</label>
+                                    <input asp-for="BirthDate" type="date" class="form-control" />
+                                    <span asp-validation-for="BirthDate" class="text-danger small"></span>
+                                </div>
+                            </div>
+
+                            <!-- Gender -->
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label asp-for="Gender" class="form-label">Gender</label>
+                                    <select asp-for="Gender" class="form-select">
+                                        <option value="">-- Select --</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
+                                    <span asp-validation-for="Gender" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Nutrition Goals -->
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="fas fa-bullseye"></i> Step 2: Nutrition Goals</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Activity Level -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="ActivityLevel" class="form-label">Activity Level</label>
+                                    <select asp-for="ActivityLevel" class="form-select">
+                                        <option value="">-- Select --</option>
+                                        <option value="Sedentary">Sedentary (little/no exercise)</option>
+                                        <option value="Light">Light (1-3 days/week)</option>
+                                        <option value="Moderate">Moderate (3-5 days/week)</option>
+                                        <option value="Active">Active (6-7 days/week)</option>
+                                        <option value="VeryActive">Very Active (intense daily)</option>
+                                    </select>
+                                    <span asp-validation-for="ActivityLevel" class="text-danger small"></span>
+                                </div>
+                            </div>
+
+                            <!-- Goal -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="Goal" class="form-label">Fitness Goal</label>
+                                    <select asp-for="Goal" class="form-select">
+                                        <option value="">-- Select --</option>
+                                        <option value="WeightLoss">Weight Loss</option>
+                                        <option value="Maintain">Maintain Weight</option>
+                                        <option value="MuscleGain">Muscle Gain</option>
+                                    </select>
+                                    <span asp-validation-for="Goal" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Dietary Preferences -->
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="mb-0"><i class="fas fa-utensils"></i> Step 3: Dietary Preferences</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Allergies -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="Allergies" class="form-label">Allergies</label>
+                                    <input asp-for="Allergies" class="form-control" placeholder="e.g., Nuts, Dairy, Shellfish" />
+                                    <small class="form-text text-muted">Separate multiple items with commas</small>
+                                </div>
+                            </div>
+
+                            <!-- Cuisine Preferences -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="CuisinePreferences" class="form-label">Cuisine Preferences</label>
+                                    <input asp-for="CuisinePreferences" class="form-control" placeholder="e.g., Vietnamese, Asian, Western" />
+                                    <small class="form-text text-muted">Separate multiple items with commas</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Budget -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="Budget" class="form-label">Weekly Budget</label>
+                                    <select asp-for="Budget" class="form-select">
+                                        <option value="Low">Low ($50-100/week)</option>
+                                        <option value="Medium">Medium ($100-200/week)</option>
+                                        <option value="High">High ($200+/week)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Meals Per Day -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="MealsPerDay" class="form-label">Meals Per Day</label>
+                                    <select asp-for="MealsPerDay" class="form-select">
+                                        <option value="2">2 meals</option>
+                                        <option value="3">3 meals</option>
+                                        <option value="4">4 meals</option>
+                                        <option value="5">5 meals</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-save"></i> Save Profile & Calculate Nutrition
+                            </button>
+                        </div>
+                        <div class="text-center mt-3">
+                            <small class="text-muted">
+                                We'll calculate your BMR, TDEE, and personalized calorie targets
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<style>
+    .card {
+        border: none;
+        border-radius: 10px;
+    }
+
+    .card-header {
+        border-radius: 10px 10px 0 0 !important;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+    }
+
+    .btn-primary {
+        border-radius: 8px;
+        padding: 15px;
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(13, 110, 253, 0.4);
+        transition: all 0.3s ease;
+    }
+
+    label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+</style>

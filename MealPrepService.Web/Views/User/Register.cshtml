@@ -1,0 +1,124 @@
+@using MealPrepService.Web.Models
+@model RegisterViewModel
+@{
+    ViewData["Title"] = "Register - MealPrepService";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3 class="mb-0"><i class="fas fa-user-plus"></i> Create Account</h3>
+                    <small>Join MealPrepService for healthy eating</small>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Register" asp-controller="User" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <!-- Name Field -->
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label">
+                                <i class="fas fa-user"></i> Full Name
+                            </label>
+                            <input asp-for="Name" 
+                                   class="form-control" 
+                                   placeholder="Enter your full name" 
+                                   autofocus />
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Email Field -->
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">
+                                <i class="fas fa-envelope"></i> Email Address
+                            </label>
+                            <input asp-for="Email" 
+                                   type="email" 
+                                   class="form-control" 
+                                   placeholder="your.email@example.com" />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Password Field -->
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label">
+                                <i class="fas fa-lock"></i> Password
+                            </label>
+                            <input asp-for="Password" 
+                                   type="password" 
+                                   class="form-control" 
+                                   placeholder="Minimum 6 characters" />
+                            <span asp-validation-for="Password" class="text-danger small"></span>
+                            <small class="form-text text-muted">
+                                Password must be at least 6 characters long
+                            </small>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-check-circle"></i> Create Account
+                            </button>
+                        </div>
+
+                        <!-- Login Link -->
+                        <div class="text-center mt-3">
+                            <small class="text-muted">
+                                Already have an account? 
+                                <a asp-action="Login" asp-controller="User" class="text-primary">
+                                    Sign in here
+                                </a>
+                            </small>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Benefits Section -->
+            <div class="card mt-3 border-0">
+                <div class="card-body">
+                    <h6 class="text-muted mb-2"><i class="fas fa-star text-warning"></i> Why Join Us?</h6>
+                    <ul class="list-unstyled small text-muted">
+                        <li><i class="fas fa-check text-success"></i> AI-powered personalized meal plans</li>
+                        <li><i class="fas fa-check text-success"></i> Track your nutrition goals</li>
+                        <li><i class="fas fa-check text-success"></i> Healthy eating made easy</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<style>
+    .card {
+        border-radius: 15px;
+        border: none;
+    }
+
+    .card-header {
+        border-radius: 15px 15px 0 0 !important;
+        padding: 1.5rem;
+    }
+
+    .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+    }
+
+    .btn-primary {
+        border-radius: 8px;
+        padding: 12px;
+        font-weight: 600;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+        transition: all 0.3s ease;
+    }
+</style>

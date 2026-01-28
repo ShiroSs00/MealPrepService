@@ -18,10 +18,29 @@ namespace MealPrepService.BLL.Services
         }
 
         // =====================
+        // LOGIN USER
+        // =====================
+        public User Login(string email, string password)
+        {
+            // ⚠️ WARNING: This is a simple implementation for demo purposes
+            // In production, use proper password hashing (BCrypt, Identity, etc.)
+            var user = _context.Users
+                .FirstOrDefault(u => u.Email == email && u.PasswordHash == password);
+
+            return user;
+        }
+
+        // =====================
         // REGISTER USER
         // =====================
         public User Register(string name, string email, string passwordHash)
         {
+            // Check if email already exists
+            if (_context.Users.Any(u => u.Email == email))
+            {
+                throw new Exception("Email already registered");
+            }
+
             var user = new User
             {
                 Name = name,
